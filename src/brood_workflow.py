@@ -8,7 +8,13 @@ os.environ['OE_LICENSE'] = '/db1/OpenEye/license/oe_license.txt'
 if not os.path.isfile(os.environ['OE_LICENSE']):
     os.environ['OE_LICENSE'] = '/db1/OpenEye/oe_license.txt'
 
-BROOD_EXE = '/db1/OpenEye/ubuntu18/bin/brood'
+if os_info["VERSION_ID"].startswith("18."):
+    BROOD_EXE = '/db1/OpenEye/ubuntu18/bin/brood'
+elif os_info["VERSION_ID"].startswith("20."):
+    BROOD_EXE = '/db1/OpenEye/ubuntu20/bin/brood'
+else:
+    raise Exception("This ubuntu version can't use OpenEye application")
+
 DB_CONFIG = '-db /db1/brood/chembl20'
 EXTRA_PARAMS = '-minMolWt 0.0 -minpsa 0 -minHvyAtom 0'
 
