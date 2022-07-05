@@ -8,6 +8,14 @@ os.environ['OE_LICENSE'] = '/db1/OpenEye/license/oe_license.txt'
 if not os.path.isfile(os.environ['OE_LICENSE']):
     os.environ['OE_LICENSE'] = '/db1/OpenEye/oe_license.txt'
 
+os_info = {
+    key: value.strip("\"'")
+    for key, value in (
+        line.strip().split("=", 1)
+        for line in open("/etc/os-release", "rt").readlines()
+    )
+}
+
 if os_info["VERSION_ID"].startswith("18."):
     BROOD_EXE = '/db1/OpenEye/ubuntu18/bin/brood'
 elif os_info["VERSION_ID"].startswith("20."):
